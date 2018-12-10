@@ -1,0 +1,6 @@
+SpeechRecognition
+# installed by default on raspberrypi, commented out for other platforms...
+# gpiozero
+pocketsphinx
+pyaudio
+pyttsx3
