@@ -4,3 +4,4 @@ SpeechRecognition
 pocketsphinx
 pyaudio
 pyttsx3
+snips-nlu
