@@ -1,3 +1,5 @@
+models/nlu/*.json
+
 ### Python ###
 
 # Byte-compiled / optimized / DLL files
