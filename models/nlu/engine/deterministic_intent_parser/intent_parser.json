@@ -1,0 +1,129 @@
+{
+  "config": {
+    "max_pattern_length": 1000, 
+    "max_queries": 100, 
+    "unit_name": "deterministic_intent_parser"
+  }, 
+  "group_names_to_slot_names": {
+    "group_0": "temperature", 
+    "group_1": "room", 
+    "group_10": "room", 
+    "group_11": "room", 
+    "group_12": "room", 
+    "group_13": "room", 
+    "group_14": "room", 
+    "group_15": "location", 
+    "group_16": "dateTime", 
+    "group_17": "location", 
+    "group_18": "dateTime", 
+    "group_19": "location", 
+    "group_2": "room", 
+    "group_20": "dateTime", 
+    "group_21": "location", 
+    "group_22": "dateTime", 
+    "group_23": "location", 
+    "group_24": "dateTime", 
+    "group_25": "location", 
+    "group_26": "dateTime", 
+    "group_27": "dateTime", 
+    "group_28": "dateTime", 
+    "group_29": "dateTime", 
+    "group_3": "temperature", 
+    "group_30": "led", 
+    "group_31": "led", 
+    "group_32": "led", 
+    "group_33": "led", 
+    "group_34": "led", 
+    "group_35": "led", 
+    "group_36": "led", 
+    "group_37": "led", 
+    "group_38": "origin", 
+    "group_39": "destination", 
+    "group_4": "temperature", 
+    "group_40": "dateTime", 
+    "group_41": "destination", 
+    "group_42": "destination", 
+    "group_43": "dateTime", 
+    "group_5": "room", 
+    "group_6": "temperature", 
+    "group_7": "room", 
+    "group_8": "room", 
+    "group_9": "room"
+  }, 
+  "language_code": "en", 
+  "patterns": {
+    "getWeather": [
+      "^\\s*What\\s*will\\s*be\\s*the\\s*weather\\s*in\\s*(?P<group_25>%CITY%)\\s*(?P<group_26>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*What\\s*kind\\s*of\\s*weather\\s*should\\s*I\\s*expect\\s*in\\s*(?P<group_17>%CITY%)\\s*(?P<group_18>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*What\\s*will\\s*be\\s*the\\s*weather\\s*(?P<group_27>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*What\\s*will\\s*be\\s*the\\s*weather\\s*here\\s*(?P<group_28>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*What\\s*is\\s*the\\s*weather\\s*in\\s*(?P<group_23>%CITY%)\\s*(?P<group_24>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*give\\s*me\\s*the\\s*weather\\s*forecast\\s*for\\s*(?P<group_15>%CITY%)\\s*(?P<group_16>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*What\\s*will\\s*be\\s*the\\s*weather\\s*outside\\s*(?P<group_29>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*Tell\\s*me\\s*if\\s*it\\s*is\\s*going\\s*to\\s*rain\\s*(?P<group_21>%CITY%)\\s*(?P<group_22>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*Will\\s*it\\s*be\\s*sunny\\s*in\\s*(?P<group_19>%CITY%)\\s*(?P<group_20>%SNIPSDATETIME%)\\s*$"
+    ], 
+    "searchFlight": [
+      "^\\s*show\\s*me\\s*flights\\s*to\\s*go\\s*to\\s*(?P<group_42>%DESTINATION%)\\s*leaving\\s*(?P<group_43>%SNIPSDATETIME%)\\s*$", 
+      "^\\s*find\\s*me\\s*a\\s*flight\\s*from\\s*(?P<group_38>%ORIGIN%)\\s*to\\s*(?P<group_39>%DESTINATION%)\\s*$", 
+      "^\\s*I\\s*need\\s*a\\s*flight\\s*leaving\\s*(?P<group_40>%SNIPSDATETIME%)\\s*to\\s*(?P<group_41>%DESTINATION%)\\s*$"
+    ], 
+    "setTemperature": [
+      "^\\s*Can\\s*you\\s*increase\\s*the\\s*temperature\\s*to\\s*(?P<group_6>%SNIPSTEMPERATURE%)\\s*\\?\\s*$", 
+      "^\\s*Set\\s*the\\s*temperature\\s*to\\s*(?P<group_0>%SNIPSTEMPERATURE%)\\s*in\\s*the\\s*(?P<group_1>%ROOM%)\\s*$", 
+      "^\\s*I\\s*want\\s*(?P<group_4>%SNIPSTEMPERATURE%)\\s*in\\s*the\\s*(?P<group_5>%ROOM%)\\s*please\\s*$", 
+      "^\\s*please\\s*set\\s*the\\s*(?P<group_2>%ROOM%)\\s*s\\s*temperature\\s*to\\s*(?P<group_3>%SNIPSTEMPERATURE%)\\s*$"
+    ], 
+    "turnLedOff": [
+      "^\\s*switch\\s*on\\s*the\\s*(?P<group_32>%SNIPSORDINAL%)\\s*LED\\s*will\\s*you\\s*\\?\\s*$", 
+      "^\\s*Turn\\s*on\\s*the\\s*(?P<group_30>%SNIPSORDINAL%)\\s*LED\\s*$", 
+      "^\\s*turn\\s*the\\s*(?P<group_31>%SNIPSORDINAL%)\\s*LED\\s*out\\s*please\\s*$", 
+      "^\\s*Switch\\s*the\\s*(?P<group_33>%SNIPSORDINAL%)\\s*LED\\s*on\\s*please\\s*$"
+    ], 
+    "turnLedOn": [
+      "^\\s*Turn\\s*on\\s*the\\s*(?P<group_34>%SNIPSORDINAL%)\\s*LED\\s*$", 
+      "^\\s*Switch\\s*the\\s*(?P<group_37>%SNIPSORDINAL%)\\s*LED\\s*on\\s*please\\s*$", 
+      "^\\s*turn\\s*the\\s*(?P<group_35>%SNIPSORDINAL%)\\s*LED\\s*on\\s*please\\s*$", 
+      "^\\s*switch\\s*on\\s*the\\s*(?P<group_36>%SNIPSORDINAL%)\\s*LED\\s*will\\s*you\\s*\\?\\s*$"
+    ], 
+    "turnLightOff": [
+      "^\\s*Turn\\s*off\\s*the\\s*lights\\s*in\\s*the\\s*(?P<group_7>%ROOM%)\\s*$", 
+      "^\\s*turn\\s*the\\s*(?P<group_8>%ROOM%)\\s*s\\s*light\\s*out\\s*please\\s*$", 
+      "^\\s*Switch\\s*the\\s*(?P<group_10>%ROOM%)\\s*s\\s*lights\\s*off\\s*please\\s*$", 
+      "^\\s*switch\\s*off\\s*the\\s*light\\s*the\\s*(?P<group_9>%ROOM%)\\s*will\\s*you\\s*\\?\\s*$"
+    ], 
+    "turnLightOn": [
+      "^\\s*give\\s*me\\s*some\\s*light\\s*in\\s*the\\s*(?P<group_12>%ROOM%)\\s*please\\s*$", 
+      "^\\s*switch\\s*the\\s*(?P<group_14>%ROOM%)\\s*s\\s*lights\\s*on\\s*please\\s*$", 
+      "^\\s*Can\\s*you\\s*light\\s*up\\s*the\\s*(?P<group_13>%ROOM%)\\s*\\?\\s*$", 
+      "^\\s*Turn\\s*on\\s*the\\s*lights\\s*in\\s*the\\s*(?P<group_11>%ROOM%)\\s*$"
+    ]
+  }, 
+  "slot_names_to_entities": {
+    "getWeather": {
+      "dateTime": "snips/dateTime", 
+      "location": "city"
+    }, 
+    "searchFlight": {
+      "dateTime": "snips/dateTime", 
+      "destination": "destination", 
+      "origin": "origin"
+    }, 
+    "setTemperature": {
+      "room": "room", 
+      "temperature": "snips/temperature"
+    }, 
+    "turnLedOff": {
+      "led": "snips/ordinal"
+    }, 
+    "turnLedOn": {
+      "led": "snips/ordinal"
+    }, 
+    "turnLightOff": {
+      "room": "room"
+    }, 
+    "turnLightOn": {
+      "room": "room"
+    }
+  }
+}

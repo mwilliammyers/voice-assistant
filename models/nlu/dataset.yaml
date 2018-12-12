@@ -42,13 +42,21 @@ utterances:
 ---
 type: intent
 name: getWeather
+slots:
+  - name: location 
+    entity: city 
+  - name: dateTime 
+    entity: snips/dateTime
 utterances:
-  - give me the weather forecast for [location:city](Los Angeles) [dateTime:snips/datetime](this weekend)
-  - What kind of weather should I expect in [location:city](New York City) [dateTime:snips/datetime](tomorrow)
-  - Will it be sunny in [location:city](Tokyo) [dateTime:snips/datetime](at the end of the day)
-  - Tell me if it is going to rain [location:city](Chicago) [dateTime:snips/datetime](this afternoon)
-  - What is the weather in [location:city](Salt Lake City) [dateTime:snips/datetime](right now)
-  - What will be the weather in [location:city](Provo) [dateTime:snips/datetime](next Tuesday morning)
+  - give me the weather forecast for [location](Los Angeles) [dateTime](this weekend)
+  - What kind of weather should I expect in [location](New York City) [dateTime](tomorrow)
+  - Will it be sunny in [location](Tokyo) [dateTime](at the end of the day)
+  - Tell me if it is going to rain [location](Chicago) [dateTime](this afternoon)
+  - What is the weather in [location](Salt Lake City) [dateTime](right now)
+  - What will be the weather in [location](Provo) [dateTime](next Tuesday morning)
+  - What will be the weather [dateTime](in a month)
+  - What will be the weather here [dateTime](later)
+  - What will be the weather outside [dateTime](in 30 minutes)
 
 ---
 type: intent
@@ -56,27 +64,61 @@ name: setTemperature
 slots:
   - name: room
     entity: room
-  - name: roomTemperature
+  - name: temperature
     entity: snips/temperature
 utterances:
-  - Set the temperature to [roomTemperature](19 degrees) in the [room](bedroom)
-  - please set the [room](living room)'s temperature to [roomTemperature](twenty two degrees celsius)
-  - I want [roomTemperature](75 degrees fahrenheit) in the [room](bathroom) please
-  - Can you increase the temperature to [roomTemperature](22 degrees) ?
+  - Set the temperature to [temperature](19 degrees) in the [room](bedroom)
+  - please set the [room](living room)'s temperature to [temperature](twenty two degrees celsius)
+  - I want [temperature](75 degrees fahrenheit) in the [room](bathroom) please
+  - Can you increase the temperature to [temperature](22 degrees) ?
 
 ---
 type: intent
 name: searchFlight
+slots:
+  - name: location 
+    entity: city 
+  - name: dateTime 
+    entity: snips/dateTime
 utterances:
-  - find me a flight from [origin:city](Paris) to [destination:city]
-  - I need a flight leaving [date:snips/datetime] to [destination]
-  - show me flights to go to [destination] leaving [date]
+  - find me a flight from [origin](Paris) to [destination](Wilmette)
+  - I need a flight leaving [dateTime] to [destination](Evanston)
+  - show me flights to go to [destination](SLC) leaving [dateTime]
 
 # entities
+# ---
+# type: entity
+# name: dateTime 
+# automatically_extensible: yes
+# use_synonyms: yes
+# matching_strictness: .75
+# values:
+#   - tomorrow
+#   - this weekend
+#   - at the end of the day
+#   - this afternoon
+#   - right now
+#   - next Tuesday morning
+#   - at 10am
+#   - next week
+#   - later
+#   - 1 hour
+#   - in 30 minutes
+#   - at 4pm
+#   - this evening
+#   - tomorrow at 3:45:42AM
+#   - Monday morning
+#   - in 2 days
+#   - in four months
+#   - in a year
+#   - in about a year
+
 ---
 type: entity
 name: room
-automatically_extensible: no
+automatically_extensible: yes
+use_synonyms: yes
+matching_strictness: .75
 values:
   - bedroom
   - [living room, main room, lounge]
@@ -85,6 +127,9 @@ values:
 ---
 type: entity
 name: city
+automatically_extensible: yes
+use_synonyms: yes
+matching_strictness: .5
 values:
   - london
   - [new york, big apple, nyc, NYC]
