@@ -88,11 +88,11 @@ def action_from(intent=None, slots=None, input=None):
         return lambda: change_led_state("off", led)
 
     if intent.get("intentName") == "turnLightOn":
-        room = entities.get("room", {}).get("value")
+        room = entities.get("room", {}).get("value", {}).get("value")
         return lambda: change_light_state("on", room)
 
     if intent.get("intentName") == "turnLightOff":
-        room = entities.get("room", {}).get("value")
+        room = entities.get("room", {}).get("value", {}).get("value")
         return lambda: change_light_state("off", room)
 
     if intent.get("intentName") == "getWeather":
