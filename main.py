@@ -46,7 +46,7 @@ def transcribe(source, recognizer=None, retries=5, **kwargs):
             print(e)
             speak("uh oh")
         finally:
-            print("{:.4f}".format(timeit.default_timer() - start))
+            print("finished ASR {:.4f}".format(timeit.default_timer() - start))
 
 
 def action_from(intent=None, slots=None, input=None):
@@ -138,9 +138,12 @@ if __name__ == "__main__":
         def handle_button_press():
             # keyword_entries=[("light", 0.2), ("turn", 0.1), ("on", 0.05)],
             # transcript = nlu_engine.parse(transcribe(source))
+            raw_transcript = transcribe(source)
+            print(raw_transcript)
+
             transcript = requests.get(
-                "http://192.168.1.169:9001/parse",
-                data={"text": transcribe(source) or ""},
+                "http://voxjar.ddns.net:9001/parse",
+                json={"text": raw_transcript},
             ).json()
 
             print(transcript)
