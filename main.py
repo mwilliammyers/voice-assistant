@@ -6,8 +6,6 @@ from pathlib import Path
 from signal import pause
 from subprocess import check_output
 
-from snips_nlu import SnipsNLUEngine
-
 
 def speak(text, engine=None, record=True):
     if engine is None:
@@ -121,26 +119,36 @@ def action_from(intent=None, slots=None, input=None):
 if __name__ == "__main__":
     import speech_recognition as sr
     from gpiozero import Button
+    import requests
+
+    # TODO: fix nlu install
+    # from snips_nlu import SnipsNLUEngine
 
     # hacky but it works
-    project_root = Path(
-        check_output(["git", "rev-parse", "--show-toplevel"]).rstrip()
-    )
-    model_dir = Path(project_root, "models/nlu/engine")
+    # cmd = ["git", "rev-parse", "--show-toplevel"]
+    # project_root = Path(check_output(cmd).decode().rstrip())
+    # model_dir = Path(project_root, "models/nlu/engine")
 
-    nlu_engine = SnipsNLUEngine().from_path(model_dir)
+    # nlu_engine = SnipsNLUEngine().from_path(model_dir)
 
     with sr.Microphone(sample_rate=16000) as source:
-        button = Button(6)
+        button5 = Button(5)
+        button6 = Button(6)
 
         def handle_button_press():
             # keyword_entries=[("light", 0.2), ("turn", 0.1), ("on", 0.05)],
-            transcript = nlu_engine.parse(transcribe(source))
+            # transcript = nlu_engine.parse(transcribe(source))
+            transcript = requests.get(
+                "http://192.168.1.169:9001/parse",
+                data={"text": transcribe(source) or ""},
+            ).json()
 
             print(transcript)
 
             action_from(**transcript)()
 
-            button.when_pressed = handle_button_press
+        button5.when_pressed = handle_button_press
+        button6.when_pressed = handle_button_press
 
+        print("waiting for button press")
         pause()
