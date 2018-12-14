@@ -3,41 +3,47 @@
 type: intent
 name: turnLedOn
 utterances:
-  - Turn on the [led:snips/ordinal](first) LED
-  - turn the [led:snips/ordinal](third) LED on please
-  - switch on the [led:snips/ordinal](27th) LED, will you?
-  - Switch the [led:snips/ordinal](sixth) LED on please
+  - Turn on the [led:snips/ordinal](first) lid
+  - turn the [led:snips/ordinal](third) lid on please
+  - switch on the [led:snips/ordinal](27th) lid, will you?
+  - Switch the [led:snips/ordinal](sixth) lid on please
+  - turn the lid on
+  - turn on the lid
+  - switch the lid on
 ---
 type: intent
 name: turnLedOff
 utterances:
-  - Turn on the [led:snips/ordinal](first) LED
-  - turn the [led:snips/ordinal](third) LED out please
-  - switch on the [led:snips/ordinal](27th) LED, will you?
-  - Switch the [led:snips/ordinal](sixth) LED on please
+  - Turn on the [led:snips/ordinal](first) lid
+  - turn the [led:snips/ordinal](third) lid out please
+  - switch on the [led:snips/ordinal](27th) lid, will you?
+  - Switch the [led:snips/ordinal](sixth) lid on please
+  - turn the lid off 
+  - turn off the lid
+  - switch the lid off
 
----
-type: intent
-name: turnLightOn
-slots:
-  - name: room
-    entity: room
-utterances:
-  - Turn on the lights in the [room](kitchen)
-  - give me some light in the [room](bathroom) please
-  - Can you light up the [room](living room) ?
-  - switch the [room](bedroom)'s lights on please
----
-type: intent
-name: turnLightOff
-slots:
-  - name: room
-    entity: room
-utterances:
-  - Turn off the lights in the [room](entrance)
-  - turn the [room](bathroom)'s light out please
-  - switch off the light the [room](kitchen), will you?
-  - Switch the [room](bedroom)'s lights off please
+# ---
+# type: intent
+# name: turnLightOn
+# slots:
+#   - name: room
+#     entity: room
+# utterances:
+#   - Turn on the lights in the [room](kitchen)
+#   - give me some light in the [room](bathroom) please
+#   - Can you light up the [room](living room) ?
+#   - switch the [room](bedroom)'s lights on please
+# ---
+# type: intent
+# name: turnLightOff
+# slots:
+#   - name: room
+#     entity: room
+# utterances:
+#   - Turn off the lights in the [room](entrance)
+#   - turn the [room](bathroom)'s light out please
+#   - switch off the light the [room](kitchen), will you?
+#   - Switch the [room](bedroom)'s lights off please
 
 ---
 type: intent

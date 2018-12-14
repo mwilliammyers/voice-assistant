@@ -50,7 +50,7 @@ def transcribe(source, recognizer=None, listening_led=5, **kwargs):
     kwargs.setdefault("language", "en-US-ptm")
 
     # TODO: should we adjust for ambient noise?
-    recognizer.adjust_for_ambient_noise(source)
+    # recognizer.adjust_for_ambient_noise(source)
 
     led = init_led(listening_led)
     led.on()
@@ -111,7 +111,7 @@ def action_from(intent=None, slots=None, input=None):
         return lambda: change_light_state("off", room)
 
     if intent.get("intentName") == "getWeather":
-        location = entities.get("location", {}).get("value")
+        location = entities.get("location", {}).get("value", {}).get("value")
         loc = "in {}".format(location) if location else "here"
         d = entities.get("dateTime", {}).get("rawValue", "")
         # TODO: use actual weather API
