@@ -156,7 +156,8 @@ if __name__ == "__main__":
             print(raw_transcript)
 
             transcript = requests.get(
-                "http://voxjar.ddns.net:9001/parse",
+                # "http://voxjar.ddns.net:9001/parse",
+                "http://192.168.1.169:9001/parse",
                 json={"text": raw_transcript},
             ).json()
 
