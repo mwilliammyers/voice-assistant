@@ -7,6 +7,24 @@ from signal import pause
 from subprocess import check_output
 
 
+def cached(f):
+    cache = {}
+
+    def helper(x):
+        if x not in cache:
+            cache[x] = f(x)
+        return cache[x]
+
+    return helper
+
+
+@cached
+def init_led(line_num):
+    from gpiozero import LED
+
+    return LED(line_num)
+
+
 def speak(text, engine=None, record=True):
     if engine is None:
         # TODO: support different engines..
@@ -22,7 +40,7 @@ def speak(text, engine=None, record=True):
     engine.runAndWait()
 
 
-def transcribe(source, recognizer=None, retries=5, **kwargs):
+def transcribe(source, recognizer=None, listening_led=5, **kwargs):
     if recognizer is None:
         import speech_recognition as sr
 
@@ -34,19 +52,25 @@ def transcribe(source, recognizer=None, retries=5, **kwargs):
     # TODO: should we adjust for ambient noise?
     recognizer.adjust_for_ambient_noise(source)
 
-    for _ in range(retries):
-        print("Say something!")
-        start = timeit.default_timer()
-        try:
-            audio = recognizer.listen(source)
-            return str(recognizer.recognize_sphinx(audio, **kwargs))
-        except sr.UnknownValueError:
-            speak("Sorry, I couldn't hear you.")
-        except sr.RequestError as e:
-            print(e)
-            speak("uh oh")
-        finally:
-            print("finished ASR {:.4f}".format(timeit.default_timer() - start))
+    led = init_led(listening_led)
+    led.on()
+
+    start = timeit.default_timer()
+
+    try:
+        audio = recognizer.listen(source)
+        led.blink()
+        return str(recognizer.recognize_sphinx(audio, **kwargs))
+    except sr.UnknownValueError:
+        speak("Sorry, I couldn't hear you.")
+        return ""
+    except sr.RequestError as e:
+        print(e)
+        speak("uh oh")
+        return ""
+    finally:
+        print("finished ASR {:.4f}".format(timeit.default_timer() - start))
+        led.off()
 
 
 def action_from(intent=None, slots=None, input=None):
@@ -60,18 +84,9 @@ def action_from(intent=None, slots=None, input=None):
     entities = {slot["slotName"]: slot for slot in slots}
 
     def change_led_state(state, led=None):
-        import gpiozero
-        from gpiozero import LED
-
         if led is None:
-            # TODO: get default led arg from argparse
             led = 26
-
-        try:
-            led = LED(led)
-        except gpiozero.exc.GPIOPinInUse:
-            pass
-
+        led = init_led(led)
         speak("Okay, turning the LED {}".format(state))
         getattr(led, state)()
 
@@ -132,8 +147,7 @@ if __name__ == "__main__":
     # nlu_engine = SnipsNLUEngine().from_path(model_dir)
 
     with sr.Microphone(sample_rate=16000) as source:
-        button5 = Button(5)
-        button6 = Button(6)
+        button = Button(6)
 
         def handle_button_press():
             # keyword_entries=[("light", 0.2), ("turn", 0.1), ("on", 0.05)],
@@ -150,8 +164,7 @@ if __name__ == "__main__":
 
             action_from(**transcript)()
 
-        button5.when_pressed = handle_button_press
-        button6.when_pressed = handle_button_press
+        button.when_pressed = handle_button_press
 
         print("waiting for button press")
         pause()
